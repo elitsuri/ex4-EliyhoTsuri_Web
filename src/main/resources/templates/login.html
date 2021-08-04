@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Ex4-EliyhoTsuri_Imran_Barhoum</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+    #usr{
+        width: 250px;
+    }
+    #idForm{
+        margin: 50px;
+    }
+    input{
+        padding: 5px;
+    }
+    .container{
+        background-color: gainsboro;
+    }
+    #error{
+        color: red;
+        margin: 5px;
+    }
+</style>
+<script>
+    function validateForm() {
+        var x = document.forms["myForm"]["username"].value;
+        if (x === "" || x == null || !x.trim().length ) {
+            document.getElementById("error").hidden = false;
+            return false;
+        }
+    }
+</script>
+<body>
+<div style="text-align: center">
+    <h1>Welcome to Chat</h1>
+
+    <div class="container">
+        <h2>Login</h2>
+        <form id="idForm" name='myForm' action="#" th:action="@{/Chat/saveUser}" method='POST' onsubmit="return validateForm()">
+            <div class="form-group">
+                <label for="usr">UserName:</label>
+                <input type='text' name='username' placeholder='UserName' id="usr" required>
+                <i class="icon-user icon-large"></i>
+            </div>
+            <div>
+                <input type="submit" class="btn btn-primary" name="submit" value="Enter"/>
+            </div>
+            <div id="error" hidden=true >*User Name must be filled out and not only white space</div>
+            <div id="errorNotAvailable" th:hidden="${notAvailable}" >*User Name is already in chat</div>
+        </form>
+    </div>
+    <p> my message: <span th:text="${message}"></span>
+</div>
+</body>
+</html>

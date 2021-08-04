@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/html" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EX4</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    <style>
+        #formSearch {
+            margin: 100px;
+        }
+        #msg {
+            padding: 10px;
+            width: 450px;
+        }
+
+        #formSearchUsr {
+            margin: 100px;
+        }
+
+        #msgUsr {
+            padding: 10px;
+            width: 450px;
+        }
+    </style>
+</head>
+<body>
+<div class="row">
+    <div style="margin:50px;">
+        <a href="/Chat/getWelcome">go back to Chat</a>
+    </div>
+    <div id="divSearchMsg" class="col-md-6">
+        <form id="formSearch" action="/Chat/SearchByMsg" name="formS" method="post">
+            <div class="form-group">
+                <label for="msg">Search by Message text:</label>
+                <input id="msg" type="text" placeholder="Search" name="msg"
+                       aria-label="Search">
+                <i class="icon-search icon-large" aria-hidden="true"></i>
+            </div>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+    <div id="divSearchUsr" class="col-md-6">
+        <form id="formSearchUsr" action="/Chat/SearchByUsr" name="formSu" method="post">
+            <div class="form-group ">
+                <label for="msgUsr">Search Message by User:</label>
+                <input id="msgUsr" type="text" name="user" placeholder="Search by User">
+                <i class="icon-search icon-large"></i>
+            </div>
+            <input type="submit" value="submit">
+        </form>
+    </div>
+    <div class="container">
+        <h1>Result message:</h1>
+        <div id="resMsg">
+            <div th:switch="${messages}" class="">
+                <h2 th:case="null">No users yet!</h2>
+                <div th:case="*">
+                    <table class="table table-striped table-responsive-md">
+                        <thead>
+                        <tr>
+                            <th>userName</th>
+                            <th>Message</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="message : ${messages}">
+                            <!--                        <p th:text="${message}"></p>-->
+                            <td th:text="${message.userName}"></td>
+                            <td th:text="${message.message}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
